@@ -58,10 +58,10 @@ public class HotelReservationSystem {
         int roomNumber = scanner.nextInt();
         System.out.print("Enter contact number: ");
         String contactNumber = scanner.next();
-        String sql = "INSERT INTO reservations (guest_name, room_number, contact_number) " +
+        String query = "INSERT INTO reservations (guest_name, room_number, contact_number) " +
                 "VALUES ('" + guestName + "', " + roomNumber + ", '" + contactNumber + "')";
         try (Statement statement = connection.createStatement()) {
-            int affectedRows = statement.executeUpdate(sql);
+            int affectedRows = statement.executeUpdate(query);
 
             if (affectedRows > 0) {
                 System.out.println("Reservation successful!");
@@ -134,13 +134,13 @@ public class HotelReservationSystem {
             System.out.print("Enter new contact number: ");
             String newContactNumber = scanner.next();
 
-            String sql = "UPDATE reservations SET guest_name = '" + newGuestName + "', " +
+            String query = "UPDATE reservations SET guest_name = '" + newGuestName + "', " +
                     "room_number = " + newRoomNumber + ", " +
                     "contact_number = '" + newContactNumber + "' " +
                     "WHERE reservation_id = " + reservationId;
 
             try (Statement statement = connection.createStatement()) {
-                int affectedRows = statement.executeUpdate(sql);
+                int affectedRows = statement.executeUpdate(query);
 
                 if (affectedRows > 0) {
                     System.out.println("Reservation updated successfully!");
@@ -154,10 +154,10 @@ public class HotelReservationSystem {
     }
     public static boolean reservationExists(Connection connection,int reservationId){
         try {
-            String sql = "SELECT reservation_id FROM reservations WHERE reservation_id = " + reservationId;
+            String query = "SELECT reservation_id FROM reservations WHERE reservation_id = " + reservationId;
 
             try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery(sql)) {
+                 ResultSet resultSet = statement.executeQuery(query)) {
 
                 return resultSet.next();
             }
@@ -176,10 +176,10 @@ public class HotelReservationSystem {
                 return;
             }
 
-            String sql = "DELETE FROM reservations WHERE reservation_id = " + reservationId;
+            String query = "DELETE FROM reservations WHERE reservation_id = " + reservationId;
 
             try (Statement statement = connection.createStatement()) {
-                int affectedRows = statement.executeUpdate(sql);
+                int affectedRows = statement.executeUpdate(query);
 
                 if (affectedRows > 0) {
                     System.out.println("Reservation deleted successfully!");
